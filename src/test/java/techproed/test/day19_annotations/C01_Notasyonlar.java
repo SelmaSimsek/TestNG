@@ -59,7 +59,7 @@ public class C01_Notasyonlar {
     public void test03() {
         System.out.println("test03 methodu calisti");
     }
-    //Junit te @BeforeClass
-
+    //Junit te @BeforeClass ve @After Class notasyonuna sahip methodlar statik olmak zorundaydi
+    // TestNG bu zorunlulugu kaldirdi
 
 }

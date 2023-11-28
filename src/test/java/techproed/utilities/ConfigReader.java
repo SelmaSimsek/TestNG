@@ -22,9 +22,5 @@ public class ConfigReader {
 
     }
 
-   //@Test
-   //public void test01() {
-   //    System.out.println(ConfigReader.getProperty("amazonUrl"));
-   //    System.out.println(ConfigReader.getProperty("techproedUrl"));
-   //}
+
 }
