@@ -1,4 +1,4 @@
-package techproed.test.day21_POM;
+package techproed.test.day22_POM;
 
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
@@ -8,7 +8,7 @@ import techproed.utilities.ConfigReader;
 import techproed.utilities.Driver;
 import techproed.utilities.ReusableMethods;
 
-public class NegativeLoginTest {
+public class C04_NegativeLoginTest {
     @Test
     public void test01() {
         //Name:

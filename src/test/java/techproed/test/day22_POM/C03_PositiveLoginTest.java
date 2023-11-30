@@ -1,4 +1,4 @@
-package techproed.test.day21_POM;
+package techproed.test.day22_POM;
 
 import org.openqa.selenium.Keys;
 import org.testng.Assert;

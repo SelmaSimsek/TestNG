@@ -25,5 +25,16 @@ public class BlueRentalPage {
     @FindBy(xpath = "//*[contains(text(), 'User with email fake@bluerentalcars.com not found'  )]")
     public WebElement negativeLoginVerify;
 
+    @FindBy(xpath = "//*[.='Profile']")
+    public WebElement profile;
+
+    @FindBy(xpath = "//em")
+    public WebElement profileEmail;
+
+    @FindBy (xpath = "//a[.='Logout']")
+    public WebElement logoutButton;
+
+    @FindBy (xpath = "//*[.='OK']")
+    public WebElement okButton;
 
 }

@@ -22,4 +22,4 @@ public class OpenSourcePage {
     @FindBy(xpath="//h6")
     public WebElement dashboard;
 
-}
+ }
