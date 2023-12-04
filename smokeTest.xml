@@ -2,7 +2,7 @@
 <suite name="Batch189">
     <test name="Smoke Test">
        <packages>
-           <package name="techproed.tests.day19_annotations"></package>
+           <package name="techproed.tests.day20_annotations_softassert"></package>
        </packages>
     </test>
 </suite>

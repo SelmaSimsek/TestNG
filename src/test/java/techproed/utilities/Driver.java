@@ -9,6 +9,51 @@ import org.openqa.selenium.safari.SafariDriver;
 import java.time.Duration;
 
 public class Driver {
+
+    //WebDriver tipinde bir ThreadLocal objecti olusturduk
+    //ThreadLocal ile her thread icin ayri bir WebDriver objesi olusturuyoruz
+    //Bu sayede paralel test yaparken her threadin kendi webdriver objectine sahip olmasini sagladik
+    //ve böylece pralel olarak calisan farkli threadler birbirlerinin webdriverlerini etkileyemezler
+
+    private static ThreadLocal<WebDriver>driverPoll = new ThreadLocal<>();
+
+
+   // static WebDriver driver;
+
+    public static WebDriver getDriver(){
+
+        if(driverPoll.get()==null){
+            // WebDriver i thread bazında oluşturuyoruz.
+            switch (ConfigReader.getProperty("browser")) {
+                case "chrome" :
+                    driverPoll.set(new ChromeDriver());
+                    break;
+
+                case "edge" :
+                    driverPoll.set(new EdgeDriver());
+                    break;
+
+                case "safari" :
+                    driverPoll.set(new SafariDriver());
+                    break;
+
+                case "firefox" :
+                    driverPoll.set(new FirefoxDriver());
+                    break;
+
+                default:
+                    driverPoll.set(new ChromeDriver());
+
+                    // Oluşturulan WebDriveri yapılandırıyoruz
+
+            }
+            driverPoll.get().manage().window().maximize();
+            driverPoll.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        }
+        // Thread'a özgü WebDriver objecti return ediyoruz.
+        return driverPoll.get();
+    }
+
     private Driver() {
         /*
         POM de Driver classindan object olusturarak getDriver methodu kullanimini engellemeliyiz
@@ -18,37 +63,6 @@ public class Driver {
          */
     }
 
-    static WebDriver driver;
-
-    public static WebDriver getDriver(){
-
-        if(driver==null){
-            switch (ConfigReader.getProperty("browser")) {
-                case "chrome" :
-                    driver = new ChromeDriver();
-                    break;
-
-                case "edge" :
-                    driver= new EdgeDriver();
-                    break;
-
-                case "safari" :
-                    driver= new SafariDriver();
-                    break;
-
-                case "firefox" :
-                    driver= new FirefoxDriver();
-                    break;
-
-                default:
-                    driver=new ChromeDriver();
-
-            }
-            driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-        }
-        return driver;
-    }
     /*
     Driver i her cagirdigimizda yeni bir pencere acmammasi icin bir if bloğu ile ayarlama yaptik
      if(driver==null) ile eger driver a deger atanmamis ise driver i baslat dedik, driver acik iken tekrar cagrilirsa
@@ -62,9 +76,11 @@ public class Driver {
      */
 
     public static void closeDriver(){
-        if(driver!=null){
-            driver.close();
-            driver=null;
+        // Açık olan WebDriver örneğini kapatıyoruz.
+        if(driverPoll.get()!=null){
+            driverPoll.get().quit();
+            driverPoll.remove();
+           // ThreadLocal'daki referansı temizliyoruz.
         }
     }
 
