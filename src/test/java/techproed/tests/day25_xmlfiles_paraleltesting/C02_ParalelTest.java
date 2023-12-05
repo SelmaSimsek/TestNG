@@ -3,7 +3,7 @@ import org.testng.annotations.Test;
 import techproed.utilities.ConfigReader;
 import techproed.utilities.Driver;
 
-public class C01_ParalelTest {
+public class C02_ParalelTest {
     @Test
     public void test01() {
         Driver.getDriver().get(ConfigReader.getProperty("googleUrl"));
